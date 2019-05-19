@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HR Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2 align="center">HR Details</h2><br>
+{#  <p>The .table-hover class enables a hover state on table rows:</p>#}
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Sector</th>
+        <th>Offered Job</th>
+          <th>HR Details</th>
+          <th>Active Status</th>
+          <th>Last Contacted</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for company in company_details %}
+    <tr>
+
+          <td>{{ company.company_name }}</td>
+        <td>{{ company.sector }}</td>
+        <td><ul>
+            {% for job in company.offered_job_profile.all %}
+
+                <li>{{ job.profile_name }}</li>
+
+            {% endfor %}
+        </ul></td>
+
+        <td>
+        <ul>
+            {% for hr in company.hrdetails_set.all %}
+                <li>{{ hr.name }}</li>
+
+                {% endfor %}
+            </ul>
+        </td>
+    <td>
+        <ul>
+             {% for hr in company.hrdetails_set.all %}
+                 {% if hr.active %}
+                 <li style="color: green">{{ hr.active }}</li>
+                     {% else %}
+                     <li style="color: red">{{ hr.active }}</li>
+                 {% endif %}
+                 {% endfor %}
+        </ul>
+    </td>
+
+        <td>
+        <ul>
+            {% for hr in company.hrdetails_set.all %}
+                <li>{{ hr.last_contacted }}</li>
+
+                {% endfor %}
+            </ul>
+        </td>
+
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
